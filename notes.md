@@ -12,7 +12,7 @@ corner and then turn? Each corner would become a node with with 2 or more
 neighbours with a distance between. 
 - How would you collect swag? You still need to check each cell.
 
-- [ ] Generate mazes with different path parameters
+- [x] Generate mazes with different path parameters
 If a maze was generated with more whitespace then it would be a better
 demonstration of finding the shortest path.
 
