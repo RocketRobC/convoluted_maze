@@ -2,12 +2,14 @@ from heapq import heappop, heappush
 from math import inf
 
 class DijkstrasPath(object):
-    def __init__(self, maze, start):
+    def __init__(self, maze, start, neighbour_offsets):
         self.maze = maze
         self.start = start
         self.path = {}
         self.swag_on_path = {}
         self.distances = self.initialise_dist(maze)
+        self.count = 0
+        self.neighbour_offsets = neighbour_offsets
 
     def initialise_dist(self, maze):
         distances = {}
@@ -32,13 +34,13 @@ class DijkstrasPath(object):
                     self.path[neighbour] = self.path[current_cell] + [neighbour]
                     self.swag_on_path[neighbour] = self.swag_on_path[current_cell] + self.swag_cell(neighbour)
                     heappush(cells_to_explore, (new_dist, neighbour))
+                    self.count += 1
         return self.distances
 
     def neighbours_for(self, cell):
         neighbours = []
-        neighbour_offsets = { 'U': (-1, 0), 'D': (1, 0), 'L': (0, -1), 'R': (0, 1) }
-        for direction in neighbour_offsets:
-            offset = neighbour_offsets.get(direction)
+        for direction in self.neighbour_offsets:
+            offset = self.neighbour_offsets.get(direction)
             adjacent_cell = (offset[0] + cell[0], offset[1] + cell[1]) 
             if self.cell_within_maze(adjacent_cell):
                 if self.maze[adjacent_cell[0]][adjacent_cell[1]] != 'wall':
@@ -59,8 +61,7 @@ class DijkstrasPath(object):
 
     def swag_cell(self, cell):
         value = self.maze[cell[0]][cell[1]]
-        if value != 'empty':
+        if value != 'End' and value != 'empty':
             return [value]
         else:
             return ['none']
-

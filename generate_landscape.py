@@ -103,9 +103,3 @@ def build_maze(m, n, swag):
   mow(grid, start_i, start_j)
   end = explore_maze(grid, start_i, start_j, swag)
   return [grid, (start_j, start_i), end]
-  
-
-swag = ['giraffe', 'watch', 'cat', 'dog']
-# maze = build_maze(25, 15, swag)
-#print(maze[0])
-# print_maze(maze[0])

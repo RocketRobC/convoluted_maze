@@ -4,12 +4,6 @@ class Printer(object):
     def __init__(self, maze):
         self.maze = maze
 
-    def overlay(self, paths):
-        for location in paths:
-            if paths.get(location) < inf:
-                self.maze[location[0]][location[1]] = '*'
-        return self
-
     def overlay_path(self, path):
         for location in path:
             if self.maze[location[0]][location[1]] == 'start':
