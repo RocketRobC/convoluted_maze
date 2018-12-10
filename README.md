@@ -53,19 +53,19 @@ The provided maze demonstrates the added efficiency AStar brings through ending 
 The landscape has been created by removing ('mowing' in the case of the script) an area of four cells that form a square rather than the maze which only removed two. For each of the 4 directions the following patterns apply.
 
 ```
-Up 	  ##
-	  ##
-	  U
+Up 	##
+	##
+	U
 
 Down	D
-		  ##
-		  ##
+	##
+	##
 		
 Left	##L
-		  ##
+	##
 
 Right	R##
-		  ##
+	 ##
 ```
 
 This creates a much sparser field with isolated obstacles that the algorithm needs to navigate and the code for this can be found in `generate_landscape.py`.
