@@ -22,7 +22,7 @@ They can all be run from the command line using `python3 <script_name.py>` from 
 
 This solution compares Dijkstra's algorithm with AStar to solve a maze built on a grid. Both implementations collect items of swag left throughout the path and sort them using the Quicksort algorithm. 
 
-###Maze
+### Maze
 
 The maze provided as a starting point for the project is built on a grid structure. Due to this the algorithms used in the solution assume a fixed distance of 1 to the next cell. The maze also has only one path from the start cell to the end cell which mean that both algorithms tested will show the same path through the maze. Where the difference is noticed is in the number of cycles the algorithm runs to find the shortest path. 
 
@@ -46,26 +46,26 @@ There is a compromise with this method however. While it gains the advantage of 
 
 
 
-###Landscape - An alternate maze
+### Landscape - An alternate maze
 
 The provided maze demonstrates the added efficiency AStar brings through ending it's search when the target cell has been calculated. However to better visualise the difference the heuristic component of AStar produces, a maze allowing different solutions is needed. For this an alternate course or landscape has been used to show the impact the heuristic has on finding the most direct route. 
 
 The landscape has been created by removing ('mowing' in the case of the script) an area of four cells that form a square rather than the maze which only removed two. For each of the 4 directions the following patterns apply.
 
-```jade
-Up 		##
-		##
-		U
+```
+Up 	  ##
+	  ##
+	  U
 
 Down	D
-		##
-		##
+		  ##
+		  ##
 		
 Left	##L
-		##
+		  ##
 
 Right	R##
-		 ##
+		  ##
 ```
 
 This creates a much sparser field with isolated obstacles that the algorithm needs to navigate and the code for this can be found in `generate_landscape.py`.
