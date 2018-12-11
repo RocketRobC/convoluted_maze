@@ -24,7 +24,7 @@ This solution compares Dijkstra's algorithm with AStar to solve a maze built on 
 
 ### Maze
 
-The maze provided as a starting point for the project is built on a grid structure. Due to this the algorithms used in the solution assume a fixed distance of 1 to the next cell. The maze also has only one path from the start cell to the end cell which mean that both algorithms tested will show the same path through the maze. Where the difference is noticed is in the number of cycles the algorithm runs to find the shortest path. 
+The maze provided as a starting point for the project is built on a grid structure. Due to this the algorithms used in the solution assume a fixed distance of 1 to the next cell. The maze also only has one path from the start cell to the end cell which mean that both algorithms tested will show the same path through the maze. Where the difference is noticed is in the number of cycles the algorithm runs to find the shortest path. 
 
 For the purpose of this analysis a cycle occurs when the new distance of a neighbouring cell is less than its current saved distance. When this happens the distance, path and swag for that cell are updated and the count is incremented. Whilst Dijkstra's will build a list of distances and paths for all cells, AStar may never calculate the distance for a cell if the provided target is reached first. 
 
@@ -32,7 +32,7 @@ For Dijkstras to return the complete path of cells for plotting on the maze this
 
 ![Dijkstra's vs AStar for a maze](assets/dijkstras_vs_astar_maze.png)
 
-Here it's clear to see the benefit AStar brings when building paths. Both algorithms have arrived at the solution but in this example it took Dijkstra's 190 cycles and AStar 155 to get there. 
+Here the benefit AStar brings when building paths is clear to see. Both algorithms have arrived at the solution but in this example it took Dijkstra's 190 cycles and AStar only 155 to get there. 
 
 In the example above a neighbour is defined as a cell directly above, below, left or right of the current cell. This doesn't allow for diagonal movement which would allow corners to be cut creating a shorter path. If a neighbour is defined in terms of compass directions N, NE, E, SE, S, SW, W, NW, the path would be able to move around a right angle corner in one move rather than two. 
 
@@ -68,19 +68,17 @@ Right	R##
 	 ##
 ```
 
-This creates a much sparser field with isolated obstacles that the algorithm needs to navigate and the code for this can be found in `generate_landscape.py`.
+This creates a much sparser field with isolated obstacles that the algorithm needs to navigate and the code for this can be found in `lib/generate_landscape.py`.
 
 In the following example you can clearly see how the heuristic impacts the direction the AStar algorithm takes. 
 
 ![Dijkstra's vs AStar path](assets/dijkstras_vs_astar_path.png)
 
-
-
 Now let's apply the same method of checking for neighbours in all directions as we did earlier. This should allow Dijkstra's to move diagonally and AStar to smooth out it's stepped diagonal movement. 
 
 ![Dijkstra's vs AStar checking diagonal neighbours](assets/dijkstras_vs_astar_intercardinal.png) 
 
-This example highlights again the direct route AStar can achieve using heuristics to guide the path towards  the cells closest to the end. Even though they both find a path with the same length, AStar finds a path that tracks more directly towards the target. AStar also shine when it comes to the number of cycles taken to reach the end with a count of 209 as opposed to Dijkstra's which took 287.
+This example highlights again the direct route AStar can achieve using heuristics to guide the path towards  the cells closest to the end. Even though they both found a path of the same length, the path AStar found  tracks more directly towards the target. AStar also shines when it comes to the number of cycles taken to reach the end with a count of 209 as opposed to Dijkstra's which took 287.
 
 
 
@@ -94,18 +92,18 @@ It's expected that within the constrains of the maze and using all intercardinal
 
 Here are results from running the script 10 times. 40% of runs were the same, 40% of the runs Manhattan came out in front leaving only two runs where Euclidean showed an advantage. The maximum variance between heuristics was only 4 cycles.
 
-| Test No. | Manhattan | Euclidean |
-| -------- | --------- | --------- |
-| 1        | 166       | 166       |
-| 2        | 179       | 179       |
-| 3        | 159       | 162       |
-| 4        | 187       | 187       |
-| 5        | 130       | 134       |
-| 6        | 180       | 180       |
-| 7        | 172       | 173       |
-| 8        | 182       | 178       |
-| 9        | 192       | 193       |
-| 10       | 140       | 138       |
+| Test No. | Manhattan | Euclidean | Variance |
+| -------- | --------- | --------- | -------- |
+| 1        | 166       | 166       | 0        |
+| 2        | 179       | 179       | 0        |
+| 3        | 159       | 162       | +3       |
+| 4        | 187       | 187       | 0        |
+| 5        | 130       | 134       | +4       |
+| 6        | 180       | 180       | 0        |
+| 7        | 172       | 173       | +1       |
+| 8        | 182       | 178       | -4       |
+| 9        | 192       | 193       | +1       |
+| 10       | 140       | 138       | -2       |
 
 
 
@@ -117,22 +115,22 @@ This example shows a significant improvement when using the Manhattan heuristic 
 
 Conducting the same test as we did for the maze confirms this result. 
 
-| Test No. | Manhattan | Euclidean |
-| -------- | --------- | --------- |
-| 1        | 277       | 294       |
-| 2        | 248       | 255       |
-| 3        | 210       | 215       |
-| 4        | 197       | 185       |
-| 5        | 268       | 280       |
-| 6        | 287       | 288       |
-| 7        | 232       | 245       |
-| 8        | 260       | 274       |
-| 9        | 194       | 194       |
-| 10       | 274       | 297       |
+| Test No. | Manhattan | Euclidean | Variance |
+| -------- | --------- | --------- | -------- |
+| 1        | 277       | 294       | +17      |
+| 2        | 248       | 255       | +7       |
+| 3        | 210       | 215       | +5       |
+| 4        | 197       | 185       | -12      |
+| 5        | 268       | 280       | +12      |
+| 6        | 287       | 288       | +1       |
+| 7        | 232       | 245       | +13      |
+| 8        | 260       | 274       | +14      |
+| 9        | 194       | 194       | 0        |
+| 10       | 274       | 297       | +23      |
 
 Only two runs of the script, 4 and 9, show results where Manhattan isn't ahead of Euclidean and in test 9 they show the same result. 
 
-From this simple test it's would be fair to say that the Manhattan heuristic performs better when finding the path through a grid based course. 
+From this simple test it would be fair to say that the Manhattan heuristic performs better when finding the path through a grid based course. 
 
 
 
