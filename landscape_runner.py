@@ -1,14 +1,14 @@
-import generate_landscape
-from printer import Printer
-from dijkstras_path import DijkstrasPath
-from astar_path import AstarPath
-from heuristics import euclidean
-from sorting import QuickSort, MergeSort
-from neighbour_offsets import complete, half
-from swag_formatter import SwagFormatter
+from lib.generate_landscape import build_maze
+from lib.printer import Printer
+from lib.dijkstras_path import DijkstrasPath
+from lib.astar_path import AstarPath
+from lib.heuristics import euclidean
+from lib.sorting import QuickSort, MergeSort
+from lib.neighbour_offsets import complete, half
+from lib.swag_formatter import SwagFormatter
 
 swag = ['lamp', 'robot', 'ninja', 'book', 'sword']
-maze_and_start = generate_landscape.build_maze(25, 15, swag)
+maze_and_start = build_maze(25, 15, swag)
 d = DijkstrasPath(maze_and_start[0], maze_and_start[1], complete)
 a = AstarPath(maze_and_start[0], maze_and_start[1], maze_and_start[2], euclidean, complete)
 
